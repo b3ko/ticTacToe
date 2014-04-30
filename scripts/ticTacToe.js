@@ -45,55 +45,58 @@ $(document).ready(function () {
 	{
 		if (checkRow())
 		{
-			alert("WINNER");
+			alert("WINNER - row");
 			return true;
 		}
 		if (checkCol())
 		{
-			alert("WINNER");
+			alert("WINNER - col");
 			return true;
 		}
 		if(checkDiag())
 		{
-			alert("WINNER");
+			alert("WINNER - diag");
 			return true;
 		}
 	}
 	
 	function checkRow()
-	{ //clean this up....all the check functions can be simplified. so mych redundant code. yuck!
-		if (grid[0][0] == "X" && grid[0][1] == "X" && grid[0][2] == "X")
-			return true;
-		if (grid[1][0] == "X" && grid[1][1] == "X" && grid[1][2] == "X")
-			return true;
-		if (grid[2][0] == "X" && grid[2][1] == "X" && grid[2][2] == "X")
-			return true;
-		if (grid[0][0] == "O" && grid[0][1] == "O" && grid[0][2] == "O")
-			return true;
-		if (grid[1][0] == "O" && grid[1][1] == "O" && grid[1][2] == "O")
-			return true;
-		if (grid[2][0] == "O" && grid[2][1] == "O" && grid[2][2] == "O")
-			return true;
-		else
-			return false;
+	{
+		var plr = getPlayer();
+		for (i = 0; i < 3; i++)
+		{
+			var inARow = 0;
+			for(j = 0; j < 3; j++)
+			{
+				if(grid[j][i] == plr)
+				{
+					inARow++;
+					if (inARow == 3)
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 	
+//clean this up....all the check functions can be simplified. so much redundant code. yuck!
 	function checkCol()
 	{
-		if (grid[0][0] == "X" && grid[1][0] == "X" && grid[2][0] == "X")
-			return true;
-		if (grid[0][1] == "X" && grid[1][1] == "X" && grid[2][1] == "X")
-			return true;
-		if (grid[0][2] == "X" && grid[1][2] == "X" && grid[2][2] == "X")
-			return true;
-		if (grid[0][0] == "O" && grid[1][0] == "O" && grid[2][0] == "O")
-			return true;
-		if (grid[0][1] == "O" && grid[1][1] == "O" && grid[2][1] == "O")
-			return true;
-		if (grid[0][2] == "O" && grid[1][2] == "O" && grid[2][2] == "O")
-			return true;
-		else
-			return false;
+		var plr = getPlayer();
+		for (i = 0; i < 3; i++)
+		{
+			var inARow = 0;
+			for(j = 0; j < 3; j++)
+			{
+				if(grid[i][j] == plr)
+				{
+					inARow++;
+					if (inARow == 3)
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	function checkDiag()
@@ -115,22 +118,28 @@ $(document).ready(function () {
 		left.forEach(clearElement);
 		mid.forEach(clearElement);
 		right.forEach(clearElement);
-		//change this to work by class .box
-		document.getElementById("topLeft").innerText = "";
-		document.getElementById("midLeft").innerText = "";
-		document.getElementById("bottomLeft").innerText = "";
-		document.getElementById("topMid").innerText = "";
-		document.getElementById("midMid").innerText = "";
-		document.getElementById("bottomMid").innerText = "";
-		document.getElementById("topRight").innerText = "";
-		document.getElementById("midRight").innerText = "";
-		document.getElementById("bottomRight").innerText = "";
+		var elems = document.getElementsByClassName("box");
+		Array.prototype.forEach.call(elems, function(el) { 
+			el.innerText = "";
+			});
 		count = 0;
 	}
 	
+	function setInner( elem, index, array)
+	{
+		array[index].innerText = "";
+	}
 	function clearElement( elem, index, array )
 	{
 		array[index] = "";
+	}
+	
+	function getPlayer()
+	{
+		if (count%2 == 1)
+			return "X";
+		else
+			return "O";
 	}
 	
 	$("#new").click(function(){
@@ -139,16 +148,9 @@ $(document).ready(function () {
 	
 	$(".box").mousedown(function(){
 		count++;
-		if(count%2==1)
-		{
-			$(this).text("X");
-			setPosition(this.id, "X")
-		}
-		else 
-		{
-			$(this).text("O");
-			setPosition(this.id, "O")
-		}
+		var plr = getPlayer();
+		$(this).text(plr);
+		setPosition(this.id, plr)
 		if(checkForWin())
 		{
 			clearBoard();
