@@ -45,17 +45,17 @@ $(document).ready(function () {
 	{
 		if (checkRow())
 		{
-			alert("WINNER - row");
+			alert("WINNER - " + getPlayer());
 			return true;
 		}
 		if (checkCol())
 		{
-			alert("WINNER - col");
+			alert("WINNER - " + getPlayer());
 			return true;
 		}
 		if(checkDiag())
 		{
-			alert("WINNER - diag");
+			alert("WINNER - " + getPlayer());
 			return true;
 		}
 	}
@@ -101,11 +101,19 @@ $(document).ready(function () {
 	
 	function checkDiag()
 	{
-		if (grid[0][0] == "X" && grid[1][1] == "X" && grid[2][2] == "X")
-			return true;
+		var plr = getPlayer();
+		var inARow = 0;
+		for(j = 0, i = 0; j < 3; i++, j++)
+		{
+			if(grid[i][j] == plr)
+			{
+				inARow++;
+				if (inARow == 3)
+					return true;
+			}
+		}
+			
 		if (grid[2][0] == "X" && grid[1][1] == "X" && grid[0][2] == "X")
-			return true;
-		if (grid[0][0] == "O" && grid[1][1] == "O" && grid[2][2] == "O")
 			return true;
 		if (grid[2][0] == "O" && grid[1][1] == "O" && grid[0][2] == "O")
 			return true;
