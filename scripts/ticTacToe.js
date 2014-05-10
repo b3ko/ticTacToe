@@ -1,44 +1,19 @@
 $(document).ready(function () {
 	//used to alternate between x and o
-	var count = 0;
+	var count = 1;
 	//holds the placement of x and o, used to find winner (will later be used for 1 player mode)
-	var left = ["","",""];
-	var mid = ["","",""];
-	var right = ["","",""];
+	var left = ["","",""];  //top, mid, bottom
+	var mid = ["","",""];   //top, mid, bottom
+	var right = ["","",""]; //top, mid, bottom
 	var grid = [left,mid,right];
 	
-	function setPosition(id, xORo) {
-		switch(id)
-		{ //this seems ugly. has to be a cleaner way. 
-			case "topLeft":
-				grid[0][0] = xORo;
-				break;
-			case "midLeft":
-				grid[0][1] = xORo;
-				break;
-			case "bottomLeft":
-				grid[0][2] = xORo;
-				break;
-			case "topMid":
-				grid[1][0] = xORo;
-				break;
-			case "midMid":
-				grid[1][1] = xORo;
-				break;
-			case "bottomMid":
-				grid[1][2] = xORo;
-				break;
-			case "topRight":
-				grid[2][0] = xORo;
-				break;
-			case "midRight":
-				grid[2][1] = xORo;
-				break;
-			case "bottomRight":
-				grid[2][2] = xORo;
-				break;
-		}
-		
+	function setPosition(x, y, xORo) {
+		if(grid[x][y] === "") {
+			grid[x][y] = xORo;
+			return true;
+			}
+		else
+			return false;
 	}
 	
 	function checkForWin()
@@ -130,7 +105,7 @@ $(document).ready(function () {
 		Array.prototype.forEach.call(elems, function(el) { 
 			el.innerText = "";
 			});
-		count = 0;
+		count = 1;
 	}
 	
 	function setInner( elem, index, array)
@@ -155,13 +130,20 @@ $(document).ready(function () {
 	});
 	
 	$(".box").mousedown(function(){
-		count++;
+		
 		var plr = getPlayer();
-		$(this).text(plr);
-		setPosition(this.id, plr)
-		if(checkForWin())
+		
+		if(setPosition(this.dataset.x, this.dataset.y, plr))
 		{
-			clearBoard();
+			if (plr == "X")
+				$(this).append("<i class='fa fa-arrows-alt fa-3x'></i>");
+			else 
+				$(this).append("<i class='fa fa-dot-circle-o fa-3x'></i>");
+			
+			if(checkForWin())
+				clearBoard();
+			else
+				count++;
 		}
 	});
 });
