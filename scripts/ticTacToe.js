@@ -18,23 +18,16 @@ $(document).ready(function () {
 	
 	function checkForWin()
 	{
-		if (checkRow())
+		if (checkRow() || checkCol() || checkDiag())
 		{
-			alert("WINNER - " + getPlayer());
-			return true;
-		}
-		if (checkCol())
-		{
-			alert("WINNER - " + getPlayer());
-			return true;
-		}
-		if(checkDiag())
-		{
-			alert("WINNER - " + getPlayer());
+			document.getElementById("myModalLabel").innerHTML = "Winner";
+			document.getElementById("bigWinner").innerHTML = "Winner - " + getPlayer();
+			$('#myModal').modal('show')
 			return true;
 		}
 	}
-	
+
+//clean this up....all the check functions can be cleaned up. so much redundant code. yuck!
 	function checkRow()
 	{
 		var plr = getPlayer();
@@ -54,7 +47,6 @@ $(document).ready(function () {
 		return false;
 	}
 	
-//clean this up....all the check functions can be simplified. so much redundant code. yuck!
 	function checkCol()
 	{
 		var plr = getPlayer();
@@ -87,7 +79,7 @@ $(document).ready(function () {
 					return true;
 			}
 		}
-			
+		//this can be improved.
 		if (grid[2][0] == "X" && grid[1][1] == "X" && grid[0][2] == "X")
 			return true;
 		if (grid[2][0] == "O" && grid[1][1] == "O" && grid[0][2] == "O")
@@ -125,7 +117,7 @@ $(document).ready(function () {
 			return "O";
 	}
 	
-	$("#new").click(function(){
+	$(".newGame").click(function(){
 		clearBoard();
 	});
 	
@@ -136,13 +128,13 @@ $(document).ready(function () {
 		if(setPosition(this.dataset.x, this.dataset.y, plr))
 		{
 			if (plr == "X")
-				$(this).append("<i class='fa fa-arrows-alt fa-3x'></i>");
+				$(this).append("<i class='fa fa-arrows-alt fa-3x x'></i>");
 			else 
-				$(this).append("<i class='fa fa-dot-circle-o fa-3x'></i>");
+				$(this).append("<i class='fa fa-dot-circle-o fa-3x y'></i>");
 			
-			if(checkForWin())
-				clearBoard();
-			else
+			if(!checkForWin())
+				//clearBoard();
+
 				count++;
 		}
 	});
