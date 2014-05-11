@@ -1,6 +1,8 @@
 $(document).ready(function () {
 	//used to alternate between x and o
 	var count = 1;
+	var scoreX = 0;
+	var scoreO = 0;
 	//holds the placement of x and o, used to find winner (will later be used for 1 player mode)
 	var left = ["","",""];  //top, mid, bottom
 	var mid = ["","",""];   //top, mid, bottom
@@ -130,12 +132,21 @@ $(document).ready(function () {
 			if (plr == "X")
 				$(this).append("<i class='fa fa-arrows-alt fa-3x x'></i>");
 			else 
-				$(this).append("<i class='fa fa-dot-circle-o fa-3x y'></i>");
+				$(this).append("<i class='fa fa-dot-circle-o fa-3x o'></i>");
 			
-			if(!checkForWin())
-				//clearBoard();
-
+			if(checkForWin())
+			{
+				if (plr == "X")
+					scoreX++;
+				else
+					scoreY++;
+				document.getElementById("scoreX").innerHTML = "X: " + scoreX;
+				document.getElementById("scoreO").innerHTML = "O: " + scoreO;
+			}
+			else
+			{
 				count++;
+			}
 		}
 	});
 });

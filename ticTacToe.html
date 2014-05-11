@@ -44,30 +44,39 @@
 	</div>
 	<div class="container">
 		<div id="ttt">
-				<div class="row" id="left" >
-					<div class="col-xs-3">
-						<div class="box col-xs-1" id="topLeft" data-x=0 data-y=0></div>
-						<div class="box col-xs-1" id="midLeft" data-x=0 data-y=1></div>
-						<div class="box col-xs-1" id="bottomLeft" data-x=0 data-y=2></div>
-					</div>
+			<div class="row" id="left" >
+				<div class="col-xs-3">
+					<div class="box col-xs-1" id="topLeft" data-x=0 data-y=0></div>
+					<div class="box col-xs-1" id="midLeft" data-x=0 data-y=1></div>
+					<div class="box col-xs-1" id="bottomLeft" data-x=0 data-y=2></div>
 				</div>
-				<div class="row" id="mid" >
-					<div class="col-xs-3">
-						<div class="box col-xs-1" id="topMid" data-x=1 data-y=0></div>
-						<div class="box col-xs-1" id="midMid" data-x=1 data-y=1></div>
-						<div class="box col-xs-1" id="bottomMid" data-x=1 data-y=2></div>
-					</div>
+			</div>
+			<div class="row" id="mid" >
+				<div class="col-xs-3">
+					<div class="box col-xs-1" id="topMid" data-x=1 data-y=0></div>
+					<div class="box col-xs-1" id="midMid" data-x=1 data-y=1></div>
+					<div class="box col-xs-1" id="bottomMid" data-x=1 data-y=2></div>
 				</div>
-				<div class="row" id="right" >
-					<div class="col-xs-3">
-						<div class="box col-xs-1" id="topRight" data-x=2 data-y=0></div>
-						<div class="box col-xs-1" id="midRight" data-x=2 data-y=1></div>
-						<div class="box col-xs-1" id="bottomRight" data-x=2 data-y=2></div>
-					</div>
+			</div>
+			<div class="row" id="right" >
+				<div class="col-xs-3">
+					<div class="box col-xs-1" id="topRight" data-x=2 data-y=0></div>
+					<div class="box col-xs-1" id="midRight" data-x=2 data-y=1></div>
+					<div class="box col-xs-1" id="bottomRight" data-x=2 data-y=2></div>
 				</div>
-				<div class="col-xs-4">
+			</div>
+			<div class="row">
+				<div class="col-xs-3 text-center">
 					<button type="button" class="btn btn-default btn-primary row newGame" id="new">new game</button>
 				</div>
+			</div>
+			<div class="row" id="score" >
+				<div class="col-xs-3">
+					<h1 class="text-center">SCORE:</h1>
+					<h2 id="scoreX" class="text-center x">X: 0</h2>
+					<h2 id="scoreO" class="text-center o">O: 0</h2>
+				</div>
+			</div>
 		</div>
 		<!-- Modal -->
 		<div class="modal fade text-left" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
